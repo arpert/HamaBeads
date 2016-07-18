@@ -125,8 +125,8 @@ namespace HamaBeads
          int D = (int)((l - 3 * settings.DOut) / settings.SizeCir);
          
          SolidBrush br = new SolidBrush(bkgColor);
-         gr.FillEllipse(br, x0 - D * settings.SizeCir / 2 - settings.DOut, y0 - D * settings.SizeCir /2 - settings.DOut, 
-                                 D * settings.SizeCir + 2 * settings.DOut, D * settings.SizeCir + 2 * settings.DOut);
+//         gr.FillEllipse(br, x0 - D * settings.SizeCir / 2 - settings.DOut, y0 - D * settings.SizeCir /2 - settings.DOut, 
+//                                 D * settings.SizeCir + 2 * settings.DOut, D * settings.SizeCir + 2 * settings.DOut);
          foreach(Bead bd in beadsCir)
          {
             bd.Draw(gr, l, l);
@@ -197,8 +197,8 @@ namespace HamaBeads
          
          SolidBrush br = new SolidBrush(bkgColor);
 
-         gr.FillRectangle(br, D / 2 - settings.DOut, DY/2 - settings.DOut, 
-                          D * settings.SizeHex - D / 2 + 2 * settings.DOut, DY * settings.SizeHex - DY / 2 + 2 * settings.DOut);
+ //        gr.FillRectangle(br, D / 2 - settings.DOut, DY/2 - settings.DOut, 
+ //                         D * settings.SizeHex - D / 2 + 2 * settings.DOut, DY * settings.SizeHex - DY / 2 + 2 * settings.DOut);
 
          foreach(Bead bd in beadsHex)
          {
@@ -279,8 +279,8 @@ namespace HamaBeads
          int l = Math.Min(w, h);
          int D = (int)((Math.Min(w, h)) / settings.SizeRec);
          SolidBrush br = new SolidBrush(bkgColor);
-         gr.FillRectangle(br, D / 2 - settings.DOut, D/2 - settings.DOut, 
-                                     D * settings.SizeRec - D + 2 * settings.DOut, D * settings.SizeRec - D + 2 * settings.DOut);
+ //        gr.FillRectangle(br, D / 2 - settings.DOut, D/2 - settings.DOut, 
+   //                                  D * settings.SizeRec - D + 2 * settings.DOut, D * settings.SizeRec - D + 2 * settings.DOut);
          foreach(Bead bd in beadsRec)
          {
             bd.Draw(gr, l, l);
@@ -295,7 +295,7 @@ namespace HamaBeads
          Graphics gr = Graphics.FromImage(bmp);
 //         SolidBrush br = new SolidBrush(bkgColor);
          gr.FillRectangle(SystemBrushes.ButtonFace, 0, 0, w, h);
-         pictureBox1.Refresh();
+  //       pictureBox1.Refresh();
          gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
          gr.DrawString(settings.BoardType, DefaultFont, Brushes.DarkRed, 10, 10);
          switch (settings.BoardType)
@@ -310,7 +310,8 @@ namespace HamaBeads
                DrawRectBoard2(gr, w, h);
                break;
          }
-         pictureBox1.CreateGraphics().DrawImageUnscaled(bmp, 0, 0);
+         //pictureBox1.CreateGraphics().DrawImageUnscaled(bmp, 0, 0);
+         pictureBox1.Image = bmp;
       }
       
       void KolorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -354,7 +355,7 @@ namespace HamaBeads
          
          public void Draw(Graphics gr, int w, int h)
          {
-            if (!hollow) 
+            if (!hollow || true) 
             {
                Pen pn = new Pen(clr, (float)((MainForm.settings.DOut - settings.DInn) / 2.0));
                gr.DrawEllipse(pn, x * w / scale - MainForm.settings.DOut / 2, 
@@ -404,27 +405,27 @@ System.Console.WriteLine("ToolStripComboBox1SelectedIndexChanged");
 		void ToolStripCirClick(object sender, EventArgs e)
 		{
 			settings.BoardType = "Cir";
-            toolStripCir.BackColor = Color.Gray;
-            toolStripRec.BackColor = Color.Silver;
-            toolStripHex.BackColor = Color.Silver;
+            toolStripCir.ForeColor = Color.Blue;
+            toolStripRec.ForeColor = Color.Silver;
+            toolStripHex.ForeColor = Color.Silver;
 			Refresh();
 		}
 
 		void ToolStripRecClick(object sender, EventArgs e)
 		{
 			settings.BoardType = "Rec";
-            toolStripCir.BackColor = Color.Silver;
-            toolStripRec.BackColor = Color.Gray;
-            toolStripHex.BackColor = Color.Silver;
+            toolStripCir.ForeColor = Color.Silver;
+            toolStripRec.ForeColor = Color.Blue;
+            toolStripHex.ForeColor = Color.Silver;
 			Refresh();
 		}
 
 		void ToolStripHexClick(object sender, EventArgs e)
 		{
 			settings.BoardType = "Hex";
-            toolStripCir.BackColor = Color.Silver;
-            toolStripRec.BackColor = Color.Silver;
-            toolStripHex.BackColor = Color.Gray;
+            toolStripCir.ForeColor = Color.Silver;
+            toolStripRec.ForeColor = Color.Silver;
+            toolStripHex.ForeColor = Color.Blue;
 			Refresh();
 		}
    }
