@@ -17,7 +17,7 @@ namespace HamaBeads
    /// </summary>
    public partial class OptionsDlg : Form
    {
-      public OptionsDlg()
+      public OptionsDlg(Form parent)
       {
          //
          // The InitializeComponent() call is required for Windows Forms designer support.

@@ -42,8 +42,6 @@ namespace HamaBeads
          //
          // TODO: Add constructor code after the InitializeComponent() call.
          //
-         toolStripComboBox1.SelectedText = settings.BoardType;
-         toolStripComboBox1.Text = settings.BoardType;
       }
       
       void InitBoard(bool force)
@@ -58,7 +56,7 @@ namespace HamaBeads
       
       void ToolStripComboBox1_TextChanged(object sender, EventArgs e)
       {
-         settings.BoardType = toolStripComboBox1.Text;
+         System.Console.WriteLine("ToolStripComboBox1_TextChanged");
          InitBoard(true);
          Invalidate();
       }
@@ -293,7 +291,8 @@ namespace HamaBeads
       {
          int w = pictureBox1.Width;
          int h = pictureBox1.Height;
-         Graphics gr = pictureBox1.CreateGraphics();
+         Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+         Graphics gr = Graphics.FromImage(bmp);
 //         SolidBrush br = new SolidBrush(bkgColor);
          gr.FillRectangle(SystemBrushes.ButtonFace, 0, 0, w, h);
          pictureBox1.Refresh();
@@ -311,6 +310,7 @@ namespace HamaBeads
                DrawRectBoard2(gr, w, h);
                break;
          }
+         pictureBox1.CreateGraphics().DrawImageUnscaled(bmp, 0, 0);
       }
       
       void KolorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -326,7 +326,8 @@ namespace HamaBeads
       
       void KolorTłaToolStripMenuItem_Click(object sender, EventArgs e)
       {
-         ColorDialog clrDlg = new ColorDialog();
+      	System.Console.WriteLine("KolorTłaToolStripMenuItem_Click");
+      	ColorDialog clrDlg = new ColorDialog();
          clrDlg.Color = bkgColor;
          if (clrDlg.ShowDialog() == DialogResult.OK)
          {
@@ -365,6 +366,7 @@ namespace HamaBeads
       
       void ObrazTłaToolStripMenuItem_Click(object sender, EventArgs e)
       {
+      	System.Console.WriteLine("ObrazTłaToolStripMenuItem_Click");
          OpenFileDialog ofdlg = new OpenFileDialog();
          ofdlg.Filter = "Image Files(*.bmp;*.jpg;*.gif;*.png)|*.bmp;*.jpg;*.gif;*.png|All files (*.*)|*.*";
          if (ofdlg.ShowDialog() == DialogResult.OK)
@@ -382,8 +384,9 @@ namespace HamaBeads
       void KonfiguracjaToolStripMenuItem_Click(object sender, System.EventArgs e)
       {
          if (options == null)
-            options = new OptionsDlg();
-         options.ShowDialog();
+            options = new OptionsDlg(this);
+         if (options.ShowDialog() == DialogResult.OK)
+         	Refresh();
       }
 
       
@@ -392,5 +395,37 @@ namespace HamaBeads
          settings.BackColor = Color.Blue;
          settings.Save();
       }
+		void ToolStripComboBox1SelectedIndexChanged(object sender, EventArgs e)
+		{
+System.Console.WriteLine("ToolStripComboBox1SelectedIndexChanged");
+        
+		}
+		
+		void ToolStripCirClick(object sender, EventArgs e)
+		{
+			settings.BoardType = "Cir";
+            toolStripCir.BackColor = Color.Gray;
+            toolStripRec.BackColor = Color.Silver;
+            toolStripHex.BackColor = Color.Silver;
+			Refresh();
+		}
+
+		void ToolStripRecClick(object sender, EventArgs e)
+		{
+			settings.BoardType = "Rec";
+            toolStripCir.BackColor = Color.Silver;
+            toolStripRec.BackColor = Color.Gray;
+            toolStripHex.BackColor = Color.Silver;
+			Refresh();
+		}
+
+		void ToolStripHexClick(object sender, EventArgs e)
+		{
+			settings.BoardType = "Hex";
+            toolStripCir.BackColor = Color.Silver;
+            toolStripRec.BackColor = Color.Silver;
+            toolStripHex.BackColor = Color.Gray;
+			Refresh();
+		}
    }
 }
