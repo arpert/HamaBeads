@@ -42,6 +42,16 @@ namespace HamaBeads
          //
          // TODO: Add constructor code after the InitializeComponent() call.
          //
+         
+         InitCircleBoard(true);
+         InitHexBoard(true);
+         InitRectBoard(true);
+         switch (settings.BoardType)
+         {
+         		case "Cir": toolStripCir.Font = new Font(toolStripCir.Font, FontStyle.Bold | FontStyle.Underline); break;
+         		case "Hex":	toolStripHex.Font = new Font(toolStripHex.Font, FontStyle.Bold | FontStyle.Underline); break;
+         		case "Rec":	toolStripRec.Font = new Font(toolStripRec.Font, FontStyle.Bold | FontStyle.Underline); break;
+         }
       }
       
       void InitBoard(bool force)
@@ -387,7 +397,13 @@ namespace HamaBeads
          if (options == null)
             options = new OptionsDlg(this);
          if (options.ShowDialog() == DialogResult.OK)
-         	Refresh();
+         {
+         	pictureBox1.Image = null;
+         	InitCircleBoard(true);
+            InitHexBoard(true);
+            InitRectBoard(true);
+           Refresh();
+         }
       }
 
       
@@ -405,27 +421,27 @@ System.Console.WriteLine("ToolStripComboBox1SelectedIndexChanged");
 		void ToolStripCirClick(object sender, EventArgs e)
 		{
 			settings.BoardType = "Cir";
-            toolStripCir.ForeColor = Color.Blue;
-            toolStripRec.ForeColor = Color.Silver;
-            toolStripHex.ForeColor = Color.Silver;
-			Refresh();
-		}
-
-		void ToolStripRecClick(object sender, EventArgs e)
-		{
-			settings.BoardType = "Rec";
-            toolStripCir.ForeColor = Color.Silver;
-            toolStripRec.ForeColor = Color.Blue;
-            toolStripHex.ForeColor = Color.Silver;
+			toolStripCir.Font = new Font(toolStripCir.Font, FontStyle.Bold | FontStyle.Underline);
+			toolStripHex.Font = new Font(toolStripHex.Font, FontStyle.Regular);
+			toolStripRec.Font = new Font(toolStripRec.Font, FontStyle.Regular);
 			Refresh();
 		}
 
 		void ToolStripHexClick(object sender, EventArgs e)
 		{
 			settings.BoardType = "Hex";
-            toolStripCir.ForeColor = Color.Silver;
-            toolStripRec.ForeColor = Color.Silver;
-            toolStripHex.ForeColor = Color.Blue;
+			toolStripCir.Font = new Font(toolStripCir.Font, FontStyle.Regular);
+			toolStripHex.Font = new Font(toolStripHex.Font, FontStyle.Bold | FontStyle.Underline);
+			toolStripRec.Font = new Font(toolStripRec.Font, FontStyle.Regular);
+			Refresh();
+		}
+
+		void ToolStripRecClick(object sender, EventArgs e)
+		{
+			settings.BoardType = "Rec";
+			toolStripCir.Font = new Font(toolStripCir.Font, FontStyle.Regular);
+			toolStripHex.Font = new Font(toolStripHex.Font, FontStyle.Regular);
+			toolStripRec.Font = new Font(toolStripRec.Font, FontStyle.Bold | FontStyle.Underline);
 			Refresh();
 		}
    }
